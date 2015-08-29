@@ -7,10 +7,12 @@ DND_RACES = DNDRaces()
 LEVELS = Levels()
 
 class Character(object):
-    max_HP = None
+    max_HP = 0
     current_HP = None
     current_XP = 0
     next_level_XP = None
+    size = None
+    speed = None
     level = 1
     MAX_XP = 1000000
     MAX_LEVEL = 30
@@ -57,10 +59,7 @@ class Character(object):
       'Religion': 0,
       'Stealth': 0,
       'Streetwise': 0,
-      'Thievery': 0,
-      'Alchemy' : 0,
-      'Engineering': 0,
-      'Profession' :0
+      'Thievery': 0
     }
 
     ability_modifiers = {
@@ -88,32 +87,60 @@ class Character(object):
       if self.race == DND_RACES.ELF:
           ability_scores["DEX"] += 2
           ability_scores["WIS"] += 2
+          skills["Nature"] += 2
+          skills["Perception"] += 2
+          size = "Medium"
+          speed = 7
       elif self.race == DND_RACES.ELADRIN:
           ability_scores["DEX"] += 2
           ability_scores["INT"] += 2
+          skills["Arcana"] += 2
+          skills["History"] += 2
+          size = "Medium"
+          speed = 6
       elif self.race == DND_RACES.DWARF:
           ability_scores["CON"] += 2
           ability_scores["WIS"] += 2
+          skills["Dungeoneering"] +=2
+          skills["Endurance"] +=2
+          size = "Medium"
+          speed = 5
       elif self.race == DND_RACES.HUMAN:
-          pass
+          size = "Medium"
+          speed = 6
+          ##user must choose 2 ability_scores and add +2 to total
       elif self.race == DND_RACES.TIEFLING:
           ability_scores["INT"] += 2
           ability_scores["CHA"] += 2
+          skills["Bluff"] += 2
+          skills["Stealth"] += 2
+          size = "Medium"
+          speed = 6
       elif self.race == DND_RACES.DRAGONBORN:
           ability_scores["STR"] += 2
           ability_scores["CHA"] += 2
           skills["History"] +=2
           skills["Intimidate"] +=2
-          ##TO-DO: MUST ADD SIZE TO RACES
+          size = "Medium"
+          speed = 6
           ##TO-DO: MUST ADD lANGUAGES
           ##TO-DO: MUST ADD SPEED TO RACES
 
       elif self.race == DND_RACES.HALFLING:
           ability_scores["DEX"] += 2
           ability_scores["CHA"] += 2
+          skills["Acrobatics"] += 2
+          skills["Thievery"] += 2
+          size = "Small"
+          speed = 6
+
       elif self.race == DND_RACES.HALF_ELF:
           ability_scores["CON"] += 2
           ability_scores["CHA"] += 2
+          skills["Diplomacy"] += 2
+          skills["Insight"] += 2
+          size = "Medium"
+          speed = 6
     ##
     def calculateMaxHP(self):
       if self.character_class == DND_CLASSES.ROUGE:
