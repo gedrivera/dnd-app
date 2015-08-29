@@ -13,9 +13,9 @@ class Character(object):
     next_level_XP = None
     size = None
     speed = None
-    level = 1
-    MAX_XP = 1000000
+    current_level = 1
     MAX_LEVEL = 30
+    MAX_XP = LEVELS.LEVELS[-1]
 
     attribute_dictionary = {
       'attribute': "name",
@@ -79,8 +79,8 @@ class Character(object):
         self.race = race
         self.character_class = character_class
 
-        calculateBaseStats()
-        calculateMaxHP()
+        self.calculateBaseStats()
+        self.calculateMaxHP()
 
     #
     def calculateAbilityScores(self):
@@ -143,29 +143,27 @@ class Character(object):
           speed = 6
     ##
     def calculateMaxHP(self):
-      if self.character_class == DND_CLASSES.ROUGE:
-          max_HP += 3
-      if self.character_class == DND_CLASSES.FIGHTER:
-          pass
-      if self.character_class == DND_CLASSES.PALADIN:
-          pass
-      if self.character_class == DND_CLASSES.BARD:
-          pass
-      if self.character_class == DND_CLASSES.WIZARD:
-          pass
-      if self.character_class == DND_CLASSES.CLERIC:
-          pass
-      if self.character_class == DND_CLASSES.WARLORD:
-          pass
-      if self.character_class == DND_CLASSES.WARLOCK:
-          pass
-      if self.character_class == DND_CLASSES.RANGER:
-          pass
+        if self.character_class == DND_CLASSES.CLERIC:
+            max_HP += 12 + ability_scores["CON"]+((self.calculateLevel()-1)*5)
+        if self.character_class == DND_CLASSES.FIGHTER:
+            max_HP += 15 + ability_scores["CON"]+((self.calculateLevel()-1)*6)
+        if self.character_class == DND_CLASSES.PALADIN:
+            max_HP += 15 + ability_scores["CON"]+((self.calculateLevel()-1)*6)
+        if self.character_class == DND_CLASSES.RANGER:
+            max_HP += 12 + ability_scores["CON"]+((self.calculateLevel()-1)*5)
+        if self.character_class == DND_CLASSES.ROUGE:
+            max_HP += 12 + ability_scores["CON"]+((self.calculateLevel()-1)*5)
+        if self.character_class == DND_CLASSES.WARLORD:
+            max_HP += 12 + ability_scores["CON"]+((self.calculateLevel()-1)*5)
+        if self.character_class == DND_CLASSES.WARLOCK:
+            max_HP += 12 + ability_scores["CON"]+((self.calculateLevel()-1)*5)
+        if self.character_class == DND_CLASSES.WIZARD:
+            max_HP += 10 + ability_scores["CON"]+((self.calculateLevel()-1)*4)
 
     ##
     def calculateLevel(self):
         levels = LEVELS.LEVELS
-            if self.current_XP == self.MAX_XP:
+            if self.current_XP == levels[-1]:
                 return self.MAX_LEVEL
             for xp in levels:
                 current_index = levels.index(xp)
